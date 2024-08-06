@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import Banner from "./components/Banner/banner";
+import Banner from "../components/Banner/banner";
 
-export default function Home() {
+export default function Movie() {
     /* initiate AOS */
     useEffect(() => {
         AOS.init({

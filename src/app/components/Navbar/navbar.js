@@ -1,32 +1,39 @@
+"use client";
+import { usePathname } from "next/navigation";
+
 import Link from "next/link";
 
 function Navbar() {
+    const pathname = usePathname();
+
     return (
-        <div className="fixed bottom-0 lg:static flex items-center justify-between px-0 lg:px-20 py-4 lg:py-6 mx-auto bg-black">
+        <div className="fixed bottom-0 lg:static flex items-center justify-between px-0 lg:px-20 py-4 lg:py-6 mx-auto bg-background" data-aos="fade">
             {/* logo */}
             <div className="hidden lg:block">
-                <h1 className="text-2xl">CineTrack</h1>
+                <Link href={"/"} className="text-2xl">
+                    CineTrack
+                </Link>
             </div>
 
             <div className="flex items-center gap-16">
                 {/* navlinks */}
                 <div className="flex w-screen lg:w-auto justify-around lg:justify-end items-center gap-10">
-                    <Link href={"/"} className="text-2xl md:text-3xl lg:text-lg">
-                        <span className="hidden lg:block">Home</span>
+                    <Link href={"/"} className="text-2xl md:text-3xl lg:text-lg tracking-wide">
+                        <span className={`hidden lg:block ${pathname === "/" ? "text-cyan-400 font-bold" : ""}`}>Home</span>
 
                         {/* home icon */}
-                        <span className="block lg:hidden">
+                        <span className={`block lg:hidden ${pathname === "/" ? "text-cyan-400" : ""}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M21 20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.49a1 1 0 0 1 .386-.79l8-6.223a1 1 0 0 1 1.228 0l8 6.223a1 1 0 0 1 .386.79zm-10-7v6h2v-6z" />
                             </svg>
                         </span>
                     </Link>
 
-                    <Link href={"/movie"} className="text-2xl md:text-3xl lg:text-lg">
-                        <span className="hidden lg:block">Movies</span>
+                    <Link href={"/movie"} className="text-2xl md:text-3xl lg:text-lg tracking-wide">
+                        <span className={`hidden lg:block ${pathname === "/movie" ? "text-cyan-400 font-bold" : ""}`}>Movies</span>
 
                         {/* movie icon */}
-                        <span className="block lg:hidden">
+                        <span className={`block lg:hidden ${pathname === "/movie" ? "text-cyan-400" : ""}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
                                 <path
                                     fill="currentColor"
@@ -36,11 +43,11 @@ function Navbar() {
                         </span>
                     </Link>
 
-                    <Link href={"/tv"} className="text-2xl md:text-3xl lg:text-lg">
-                        <span className="hidden lg:block">TV Shows</span>
+                    <Link href={"/tv"} className="text-2xl md:text-3xl lg:text-lg tracking-wide">
+                        <span className={`hidden lg:block ${pathname === "/tv" ? "text-cyan-400 font-bold" : ""}`}>TV Shows</span>
 
                         {/* tv show icon */}
-                        <span className="block lg:hidden">
+                        <span className={`block lg:hidden ${pathname === "/tv" ? "text-cyan-400" : ""}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                 <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
                                     <rect width="20" height="15" x="2" y="7" rx="2" ry="2" />

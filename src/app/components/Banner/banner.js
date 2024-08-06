@@ -1,11 +1,12 @@
 "use client";
+
 function Banner() {
     /* open up trailer when watch trailer clicked */
     const handleClick = () => window.open("https://www.youtube.com/");
 
     return (
-        <div className="relative flex flex-col lg:flex-row justify-end lg:justify-start lg:items-center h-[calc(60vh-5em)] lg:h-[70vh] p-6 md:p-10 lg:pl-20 bg-[url('https://image.tmdb.org/t/p/original/Avtx5jsdPuDa091jvx2Lye3ygke.jpg')] bg-center lg:bg-right lg:bg-contain bg-cover bg-no-repeat">
-            <div className="z-20">
+        <div className="relative flex flex-col lg:flex-row justify-end lg:justify-start lg:items-center h-[calc(60vh-5em)] lg:h-[60vh] p-6 md:p-10 lg:pl-20 bg-[url('https://image.tmdb.org/t/p/original/Avtx5jsdPuDa091jvx2Lye3ygke.jpg')] bg-center lg:bg-right lg:bg-contain bg-cover bg-no-repeat">
+            <div className="z-20" data-aos="fade-up">
                 {/* title */}
                 <h1 className="text-3xl lg:text-5xl">Longlegs</h1>
 
