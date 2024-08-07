@@ -76,12 +76,12 @@ export default function Home() {
                     <Banner data={bannerData} trailerId={bannerTrailer} />
 
                     {/* trending movies */}
-                    <div className="mt-16 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={trendingMovieData} type={"movie"} title={"Trending Movies"} url={"movie/all"} />
                     </div>
 
                     {/* trending tv shows */}
-                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={trendingTvData} type={"tv"} title={"Trending TV Shows"} url={"tv/all"} />
                     </div>
 

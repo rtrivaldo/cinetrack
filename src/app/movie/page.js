@@ -90,22 +90,22 @@ export default function Home() {
                     <Banner data={bannerData} trailerId={bannerTrailer} />
 
                     {/* now playing movies */}
-                    <div className="mt-16 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={nowPlayingMovieData} type={"movie"} title={"Now Playing"} url={"movie/all"} />
                     </div>
 
                     {/* popular movies */}
-                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={popularMovieData} type={"movie"} title={"Popular"} url={"movie/all"} />
                     </div>
 
                     {/* top rated movies */}
-                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={topRatedMovieData} type={"movie"} title={"Top Rated"} url={"movie/all"} />
                     </div>
 
                     {/* up coming movies */}
-                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={upComingMovieData} type={"movie"} title={"Up Coming"} url={"movie/all"} />
                     </div>
 
