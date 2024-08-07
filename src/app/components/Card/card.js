@@ -3,15 +3,15 @@ import Image from "next/image";
 function Card({ data, type }) {
     const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${data.poster_path}` : "/img/default-poster.png";
     const title = type === "tv" ? data.name : data.title;
-    const rating = data.vote_average;
+    const rating = data.vote_average.toFixed(1);
 
     return (
-        <div className="">
+        <>
             <div className="rounded-lg overflow-hidden">
                 <Image src={posterPath} alt="" width={220} height={340} className="w-full h-auto lg:hover:scale-105 transition-all duration-500 ease-out"></Image>
             </div>
 
-            <div className="mt-4 hidden md:block">
+            <div className="mt-4 hidden md:block h-[80px]">
                 <h1 className="tracking-wide">{title}</h1>
 
                 <div className="mt-1 flex items-center gap-2">
@@ -25,7 +25,7 @@ function Card({ data, type }) {
                     <span className="font-medium text-sm">{rating}</span>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

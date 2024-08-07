@@ -90,16 +90,24 @@ export default function Home() {
                     <Banner data={bannerData} trailerId={bannerTrailer} />
 
                     {/* airing today tv shows */}
-                    <Slider data={airingTodayTvData} type={"tv"} title={"Airing Today"} />
+                    <div className="mt-16 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                        <Slider data={airingTodayTvData} type={"tv"} title={"Airing Today"} url={"tv/all"} />
+                    </div>
 
                     {/* on the air tv shows */}
-                    <Slider data={onTheAirTvData} type={"tv"} title={"On The Air"} />
+                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                        <Slider data={onTheAirTvData} type={"tv"} title={"On The Air"} url={"tv/all"} />
+                    </div>
 
                     {/* popular tv shows */}
-                    <Slider data={popularTvData} type={"tv"} title={"Popular"} />
+                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                        <Slider data={popularTvData} type={"tv"} title={"Popular"} url={"tv/all"} />
+                    </div>
 
                     {/* top rated tv shows */}
-                    <Slider data={topRatedTvData} type={"tv"} title={"Top Rated"} />
+                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                        <Slider data={topRatedTvData} type={"tv"} title={"Top Rated"} url={"tv/all"} />
+                    </div>
 
                     <div className="mt-20 px-6 md:px-10 lg:px-20">
                         <Footer />
