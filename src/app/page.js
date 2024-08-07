@@ -44,14 +44,14 @@ export default function Home() {
 
         /* fetch data from API */
         const fetchBannerData = async () => {
-            /* get trending data */
-            const reqTrending = await fetch(`${apiUrl}/trending/all/day?language=en-US`, options);
-            const resTrending = await reqTrending.json();
+            /* get banner data */
+            const reqBannerData = await fetch(`${apiUrl}/trending/all/day?language=en-US`, options);
+            const resBannerData = await reqBannerData.json();
 
-            const resType = resTrending.results[0].media_type;
-            const resId = resTrending.results[0].id;
+            const resType = resBannerData.results[0].media_type;
+            const resId = resBannerData.results[0].id;
 
-            setBannerData(resTrending.results[0]);
+            setBannerData(resBannerData.results[0]);
 
             /* get trailer youtube id */
             const reqTrailer = await fetch(`${apiUrl}/${resType}/${resId}/videos?language=en-US`, options);
@@ -65,7 +65,7 @@ export default function Home() {
 
             setTrendingMovieData(resTrendingMovies.results);
 
-            /* get trending movies */
+            /* get trending tv */
             const reqTrendingTv = await fetch(`${apiUrl}/trending/tv/day?language=en-US`, options);
             const resTrendingTv = await reqTrendingTv.json();
 
@@ -119,7 +119,7 @@ export default function Home() {
                             >
                                 {trendingMovieData.map((data, index) => (
                                     <SwiperSlide key={index}>
-                                        <Card data={data} />
+                                        <Card data={data} type={"movie"} />
                                     </SwiperSlide>
                                 ))}
 
@@ -167,7 +167,7 @@ export default function Home() {
                             >
                                 {trendingTvData.map((data, index) => (
                                     <SwiperSlide key={index}>
-                                        <Card data={data} />
+                                        <Card data={data} type={"tv"} />
                                     </SwiperSlide>
                                 ))}
                                 <div className="swiper-button-next !hidden lg:!block"></div>

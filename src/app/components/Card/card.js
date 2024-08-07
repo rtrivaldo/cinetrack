@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-function Card({ data }) {
+function Card({ data, type }) {
     const posterPath = data.poster_path;
-    const title = data.media_type === "tv" ? data.name : data.title;
+    const title = type === "tv" ? data.name : data.title;
     const rating = data.vote_average;
 
     return (
