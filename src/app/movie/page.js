@@ -4,15 +4,9 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-
 import Banner from "../components/Banner/banner";
-import Link from "next/link";
-import Card from "../components/Card/card";
 import Footer from "../components/Footer/footer";
+import Slider from "../components/Slider/slider";
 
 export default function Home() {
     const [bannerData, setBannerData] = useState(null);
@@ -96,193 +90,16 @@ export default function Home() {
                     <Banner data={bannerData} trailerId={bannerTrailer} />
 
                     {/* now playing movies */}
-                    <div className="mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        {/* headings */}
-                        <div className="flex justify-between" data-aos="fade">
-                            <h1 className="text-lg md:text-xl lg:text-2xl">Now Playing</h1>
-
-                            <Link href={""} className="lg:text-lg text-cyan-400 tracking-wide">
-                                Explore All
-                            </Link>
-                        </div>
-
-                        {/* now playing movie card slider */}
-                        <div className="mt-4" data-aos="fade-up">
-                            <Swiper
-                                spaceBetween={10}
-                                slidesPerView={2.5}
-                                breakpoints={{
-                                    640: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 10,
-                                    },
-                                    768: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 20,
-                                    },
-                                    1024: {
-                                        slidesPerView: 6,
-                                        spaceBetween: 20,
-                                    },
-                                }}
-                                navigation={{
-                                    nextEl: ".swiper-button-next",
-                                    prevEl: ".swiper-button-prev",
-                                }}
-                                modules={[Navigation]}
-                            >
-                                {nowPlayingMovieData.map((data, index) => (
-                                    <SwiperSlide key={index}>
-                                        <Card data={data} type={"movie"} />
-                                    </SwiperSlide>
-                                ))}
-
-                                <div className="swiper-button-next !hidden lg:!block"></div>
-                                <div className="swiper-button-prev !hidden lg:!block"></div>
-                            </Swiper>
-                        </div>
-                    </div>
+                    <Slider data={nowPlayingMovieData} type={"movie"} title={"Now Playing"} />
 
                     {/* popular movies */}
-                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        {/* headings */}
-                        <div className="flex justify-between" data-aos="fade">
-                            <h1 className="text-lg md:text-xl lg:text-2xl">Popular</h1>
-
-                            <Link href={""} className="lg:text-lg text-cyan-400 tracking-wide">
-                                Explore All
-                            </Link>
-                        </div>
-
-                        {/* popular movies card slider */}
-                        <div className="mt-4" data-aos="fade-up">
-                            <Swiper
-                                spaceBetween={10}
-                                slidesPerView={2.5}
-                                breakpoints={{
-                                    640: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 10,
-                                    },
-                                    768: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 20,
-                                    },
-                                    1024: {
-                                        slidesPerView: 6,
-                                        spaceBetween: 20,
-                                    },
-                                }}
-                                navigation={{
-                                    nextEl: ".swiper-button-next",
-                                    prevEl: ".swiper-button-prev",
-                                }}
-                                modules={[Navigation]}
-                            >
-                                {popularMovieData.map((data, index) => (
-                                    <SwiperSlide key={index}>
-                                        <Card data={data} type={"movie"} />
-                                    </SwiperSlide>
-                                ))}
-                                <div className="swiper-button-next !hidden lg:!block"></div>
-                                <div className="swiper-button-prev !hidden lg:!block"></div>
-                            </Swiper>
-                        </div>
-                    </div>
+                    <Slider data={popularMovieData} type={"movie"} title={"Popular"} />
 
                     {/* top rated movies */}
-                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        {/* headings */}
-                        <div className="flex justify-between" data-aos="fade">
-                            <h1 className="text-lg md:text-xl lg:text-2xl">Top Rated</h1>
-
-                            <Link href={""} className="lg:text-lg text-cyan-400 tracking-wide">
-                                Explore All
-                            </Link>
-                        </div>
-
-                        {/* top rated tv shows card slider */}
-                        <div className="mt-4" data-aos="fade-up">
-                            <Swiper
-                                spaceBetween={10}
-                                slidesPerView={2.5}
-                                breakpoints={{
-                                    640: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 10,
-                                    },
-                                    768: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 20,
-                                    },
-                                    1024: {
-                                        slidesPerView: 6,
-                                        spaceBetween: 20,
-                                    },
-                                }}
-                                navigation={{
-                                    nextEl: ".swiper-button-next",
-                                    prevEl: ".swiper-button-prev",
-                                }}
-                                modules={[Navigation]}
-                            >
-                                {topRatedMovieData.map((data, index) => (
-                                    <SwiperSlide key={index}>
-                                        <Card data={data} type={"movie"} />
-                                    </SwiperSlide>
-                                ))}
-                                <div className="swiper-button-next !hidden lg:!block"></div>
-                                <div className="swiper-button-prev !hidden lg:!block"></div>
-                            </Swiper>
-                        </div>
-                    </div>
+                    <Slider data={topRatedMovieData} type={"movie"} title={"Top Rated"} />
 
                     {/* up coming movies */}
-                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        {/* headings */}
-                        <div className="flex justify-between" data-aos="fade">
-                            <h1 className="text-lg md:text-xl lg:text-2xl">Up Coming</h1>
-
-                            <Link href={""} className="lg:text-lg text-cyan-400 tracking-wide">
-                                Explore All
-                            </Link>
-                        </div>
-
-                        {/* popular tv shows card slider */}
-                        <div className="mt-4" data-aos="fade-up">
-                            <Swiper
-                                spaceBetween={10}
-                                slidesPerView={2.5}
-                                breakpoints={{
-                                    640: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 10,
-                                    },
-                                    768: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 20,
-                                    },
-                                    1024: {
-                                        slidesPerView: 6,
-                                        spaceBetween: 20,
-                                    },
-                                }}
-                                navigation={{
-                                    nextEl: ".swiper-button-next",
-                                    prevEl: ".swiper-button-prev",
-                                }}
-                                modules={[Navigation]}
-                            >
-                                {upComingMovieData.map((data, index) => (
-                                    <SwiperSlide key={index}>
-                                        <Card data={data} type={"movie"} />
-                                    </SwiperSlide>
-                                ))}
-                                <div className="swiper-button-next !hidden lg:!block"></div>
-                                <div className="swiper-button-prev !hidden lg:!block"></div>
-                            </Swiper>
-                        </div>
-                    </div>
+                    <Slider data={upComingMovieData} type={"movie"} title={"Up Coming"} />
 
                     <div className="mt-20 px-6 md:px-10 lg:px-20">
                         <Footer />

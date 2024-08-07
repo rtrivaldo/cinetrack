@@ -1,14 +1,14 @@
 import Image from "next/image";
 
 function Card({ data, type }) {
-    const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${data.poster_path}` : "/img/default-poster.jpeg";
+    const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${data.poster_path}` : "/img/default-poster.png";
     const title = type === "tv" ? data.name : data.title;
     const rating = data.vote_average;
 
     return (
         <div className="">
             <div className="rounded-lg overflow-hidden">
-                <Image src={posterPath} alt="" width={220} height={340} className="w-full h-auto"></Image>
+                <Image src={posterPath} alt="" width={220} height={340} className="w-full h-auto lg:hover:scale-105 transition-all duration-500 ease-out"></Image>
             </div>
 
             <div className="mt-4 hidden md:block">
