@@ -3,17 +3,17 @@
 import { parseISO, format } from "date-fns";
 import Link from "next/link";
 
-function Banner({ data, trailerId }) {
+function Banner({ data, trailerId, type }) {
     function capitalizeFirstLetter(string) {
         if (!string) return string;
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
-    const title = data.media_type === "tv" ? data.name : data.title;
+    const title = type === "tv" ? data.name : data.title;
     const rating = data.vote_average.toFixed(1);
     const reviews = data.vote_count.toLocaleString();
-    const mediaType = capitalizeFirstLetter(data.media_type);
-    const publishedYear = data.media_type === "tv" ? format(parseISO(data.first_air_date), "y") : format(parseISO(data.release_date), "y");
+    const mediaType = capitalizeFirstLetter(type);
+    const publishedYear = type === "tv" ? format(parseISO(data.first_air_date), "y") : format(parseISO(data.release_date), "y");
 
     const backdropPath = `https://image.tmdb.org/t/p/original${data.backdrop_path}`;
 

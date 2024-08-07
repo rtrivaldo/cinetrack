@@ -53,7 +53,9 @@ export default function Home() {
             const reqTrailer = await fetch(`${apiUrl}/${resType}/${resId}/videos?language=en-US`, options);
             const resTrailer = await reqTrailer.json();
 
-            setBannerTrailer(resTrailer.results[resTrailer.results.length - 1].key);
+            const trailerId = resTrailer.results.length > 0 ? resTrailer.results[resTrailer.results.length - 1].key : "";
+
+            setBannerTrailer(trailerId);
 
             /* get now playing movie */
             const reqNowPlayingMovieData = await fetch(`${apiUrl}/movie/now_playing?language=en-US&page=1`, options);
@@ -87,7 +89,7 @@ export default function Home() {
         <>
             {bannerData && nowPlayingMovieData && popularMovieData && topRatedMovieData && upComingMovieData && (
                 <div className="mb-24 lg:mb-10">
-                    <Banner data={bannerData} trailerId={bannerTrailer} />
+                    <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
 
                     {/* now playing movies */}
                     <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">

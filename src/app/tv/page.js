@@ -53,7 +53,9 @@ export default function Home() {
             const reqTrailer = await fetch(`${apiUrl}/${resType}/${resId}/videos?language=en-US`, options);
             const resTrailer = await reqTrailer.json();
 
-            setBannerTrailer(resTrailer.results[resTrailer.results.length - 1].key);
+            const trailerId = resTrailer.results.length > 0 ? resTrailer.results[resTrailer.results.length - 1].key : "";
+
+            setBannerTrailer(trailerId);
 
             /* get airing today tv */
             const reqAiringTodayTv = await fetch(`${apiUrl}/tv/airing_today?language=en-US&page=1`, options);
@@ -87,7 +89,7 @@ export default function Home() {
         <>
             {bannerData && airingTodayTvData && onTheAirTvData && popularTvData && topRatedTvData && (
                 <div className="mb-24 lg:mb-10">
-                    <Banner data={bannerData} trailerId={bannerTrailer} />
+                    <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
 
                     {/* airing today tv shows */}
                     <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
@@ -95,17 +97,17 @@ export default function Home() {
                     </div>
 
                     {/* on the air tv shows */}
-                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={onTheAirTvData} type={"tv"} title={"On The Air"} url={"tv/all"} />
                     </div>
 
                     {/* popular tv shows */}
-                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={popularTvData} type={"tv"} title={"Popular"} url={"tv/all"} />
                     </div>
 
                     {/* top rated tv shows */}
-                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={topRatedTvData} type={"tv"} title={"Top Rated"} url={"tv/all"} />
                     </div>
 

@@ -51,7 +51,9 @@ export default function Home() {
             const reqTrailer = await fetch(`${apiUrl}/${resType}/${resId}/videos?language=en-US`, options);
             const resTrailer = await reqTrailer.json();
 
-            setBannerTrailer(resTrailer.results[resTrailer.results.length - 1].key);
+            const trailerId = resTrailer.results.length > 0 ? resTrailer.results[resTrailer.results.length - 1].key : "";
+
+            setBannerTrailer(trailerId);
 
             /* get trending movies */
             const reqTrendingMovies = await fetch(`${apiUrl}/trending/movie/day?language=en-US`, options);
@@ -73,7 +75,7 @@ export default function Home() {
         <>
             {bannerData && trendingMovieData && trendingTvData && (
                 <div className="mb-24 lg:mb-10">
-                    <Banner data={bannerData} trailerId={bannerTrailer} />
+                    <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
 
                     {/* trending movies */}
                     <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
@@ -81,7 +83,7 @@ export default function Home() {
                     </div>
 
                     {/* trending tv shows */}
-                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
                         <Slider data={trendingTvData} type={"tv"} title={"Trending TV Shows"} url={"tv/all"} />
                     </div>
 
