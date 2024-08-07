@@ -55,7 +55,7 @@ function MovieAll() {
 
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
                 {allData.map((data, index) => (
-                    <div key={index} ref={index === allData.length - 1 ? lastElementRef : null}>
+                    <div key={index} ref={index === allData.length - 1 ? lastElementRef : null} data-aos="fade-up">
                         <Card data={data} type={"movie"} />
                     </div>
                 ))}

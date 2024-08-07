@@ -18,7 +18,7 @@ function Banner({ data, trailerId }) {
     const backdropPath = `https://image.tmdb.org/t/p/original${data.backdrop_path}`;
 
     return (
-        <div className="relative flex flex-col lg:flex-row justify-end lg:justify-start lg:items-center h-[40vh] md:h-[60vh] lg:h-[60vh] p-6 md:p-10 lg:px-20 bg-center lg:bg-right lg:bg-[length:1200px] bg-cover bg-no-repeat" style={{ backgroundImage: `url(${backdropPath})` }}>
+        <div className="relative flex flex-col lg:flex-row justify-end lg:justify-start lg:items-center h-[40vh] md:h-[60vh] lg:h-[60vh] p-6 md:p-10 lg:px-20 bg-center lg:bg-right lg:bg-[length:1200px] bg-cover bg-no-repeat overflow-y-hidden" style={{ backgroundImage: `url(${backdropPath})` }}>
             <div className="z-20" data-aos="fade-up">
                 {/* title */}
                 <h1 className="text-3xl lg:text-5xl">{title}</h1>
