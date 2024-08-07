@@ -181,7 +181,7 @@ export default function Home() {
                             >
                                 {popularMovieData.map((data, index) => (
                                     <SwiperSlide key={index}>
-                                        <Card data={data} type={"tv"} />
+                                        <Card data={data} type={"movie"} />
                                     </SwiperSlide>
                                 ))}
                                 <div className="swiper-button-next !hidden lg:!block"></div>

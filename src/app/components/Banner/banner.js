@@ -68,7 +68,7 @@ function Banner({ data, trailerId }) {
                 </div>
 
                 {/* smaller screen watch trailer button */}
-                <div className={`${trailerId ? "flex" : "hidden"} lg:hidden absolute inset-0 -top-40 justify-center items-center w-full h-full`}>
+                <div className={`${trailerId ? "flex" : "hidden"} lg:hidden absolute inset-0 -top-32 justify-center items-center w-full h-full`}>
                     <Link href={`https://www.youtube.com/watch?v=${trailerId}`} target="_blank" className="p-4 bg-background text-cyan-400 rounded-full">
                         {/* play icon */}
                         <span className="text-2xl">

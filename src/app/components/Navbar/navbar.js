@@ -7,7 +7,7 @@ function Navbar() {
     const pathname = usePathname();
 
     return (
-        <div className="fixed bottom-0 lg:static flex items-center justify-between px-0 lg:px-20 py-4 lg:py-6 mx-auto bg-background" data-aos="fade">
+        <div className="fixed bottom-0 lg:static flex items-center justify-between px-0 lg:px-20 py-4 lg:py-6 mx-auto bg-background z-50" data-aos="fade">
             {/* logo */}
             <div className="hidden lg:block">
                 <Link href={"/"} className="text-2xl">
