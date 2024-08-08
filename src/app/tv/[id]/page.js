@@ -4,6 +4,7 @@ import Footer from "@/app/components/Footer/footer";
 import Slider from "@/app/components/Slider/slider";
 import Aos from "aos";
 import Image from "next/image";
+import { parseISO, format } from "date-fns";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -81,11 +82,11 @@ function TvDetail() {
                                     <tbody>
                                         <tr>
                                             <td className="align-top">First Aired</td>
-                                            <td className="pl-20">{bannerData.first_air_date}</td>
+                                            <td className="pl-20">{format(parseISO(bannerData.first_air_date), "dd MMMM y")}</td>
                                         </tr>
                                         <tr>
                                             <td className="align-top">Last Aired</td>
-                                            <td className="pl-20">{bannerData.last_air_date}</td>
+                                            <td className="pl-20">{format(parseISO(bannerData.last_air_date), "dd MMMM y")}</td>
                                         </tr>
                                         <tr>
                                             <td className="align-top">Creator</td>

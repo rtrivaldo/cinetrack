@@ -4,6 +4,7 @@ import Footer from "@/app/components/Footer/footer";
 import Slider from "@/app/components/Slider/slider";
 import Aos from "aos";
 import Image from "next/image";
+import { parseISO, format } from "date-fns";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -87,7 +88,7 @@ function MovieDetail() {
                                     <tbody>
                                         <tr>
                                             <td className="align-top">Released</td>
-                                            <td className="pl-20">{bannerData.release_date}</td>
+                                            <td className="pl-20">{format(parseISO(bannerData.release_date), "dd MMMM y")}</td>
                                         </tr>
                                         <tr>
                                             <td className="align-top">Runtime</td>

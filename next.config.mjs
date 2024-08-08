@@ -7,6 +7,11 @@ const nextConfig = {
                 destination: "/movie/:id",
                 permanent: true, // Use `true` if it's a permanent redirect, otherwise `false`
             },
+            {
+                source: "/tv/tv/:id",
+                destination: "/tv/:id",
+                permanent: true, // Use `true` if it's a permanent redirect, otherwise `false`
+            },
         ];
     },
     images: {
