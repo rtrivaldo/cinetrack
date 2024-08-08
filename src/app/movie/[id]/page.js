@@ -69,10 +69,10 @@ function MovieDetail() {
                     <Banner data={bannerData} trailerId={bannerTrailer} type={"movie"} />
 
                     {/* overview */}
-                    <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                    <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden" data-aos="fade-up">
                         <h1 className="text-xl lg:text-2xl text-center text-cyan-400 font-medium tracking-wide">Overview</h1>
 
-                        <div className="mt-10 flex gap-10">
+                        <div className="mt-10 flex gap-16">
                             <Image src={bannerData.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${bannerData.poster_path}` : "/img/default-poster.png"} alt={""} width={350} height={340} className="w-[250px] xl:w-[350px] h-max hidden md:block"></Image>
 
                             <div className="">
@@ -86,28 +86,28 @@ function MovieDetail() {
                                 <table className="mt-10">
                                     <tbody>
                                         <tr>
-                                            <td>Released</td>
+                                            <td className="align-top">Released</td>
                                             <td className="pl-20">{bannerData.release_date}</td>
                                         </tr>
-                                        <tr className="mt-2">
-                                            <td>Runtime</td>
+                                        <tr>
+                                            <td className="align-top">Runtime</td>
                                             <td className="pl-20">{bannerData.runtime} minutes</td>
                                         </tr>
-                                        <tr className="mt-2">
-                                            <td>Budget</td>
+                                        <tr>
+                                            <td className="align-top">Budget</td>
                                             <td className="pl-20">${bannerData.budget.toLocaleString()}</td>
                                         </tr>
-                                        <tr className="mt-2">
-                                            <td>Revenue</td>
+                                        <tr>
+                                            <td className="align-top">Revenue</td>
                                             <td className="pl-20">${bannerData.revenue.toLocaleString()}</td>
                                         </tr>
-                                        <tr className="mt-2">
-                                            <td>Genre</td>
+                                        <tr>
+                                            <td className="align-top">Genre</td>
                                             <td className="pl-20">
                                                 <div className="flex flex-wrap gap-2">
                                                     {bannerData.genres.map((data, index) => {
                                                         return (
-                                                            <p key={index}>
+                                                            <p key={index} className="leading-none">
                                                                 {data.name}
                                                                 {bannerData.genres.length - 1 === index ? "" : ","}
                                                             </p>
@@ -116,17 +116,17 @@ function MovieDetail() {
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr className="mt-2">
-                                            <td>Status</td>
+                                        <tr>
+                                            <td className="align-top">Status</td>
                                             <td className="pl-20">{bannerData.status}</td>
                                         </tr>
-                                        <tr className="mt-2">
-                                            <td>Languange</td>
+                                        <tr>
+                                            <td className="align-top">Languange</td>
                                             <td className="pl-20">
                                                 <div className="flex flex-wrap gap-2">
                                                     {bannerData.spoken_languages.map((data, index) => {
                                                         return (
-                                                            <p key={index}>
+                                                            <p key={index} className="leading-none">
                                                                 {data.name}
                                                                 {bannerData.spoken_languages.length - 1 === index ? "" : ","}
                                                             </p>
@@ -135,13 +135,13 @@ function MovieDetail() {
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr className="mt-2">
-                                            <td>Production</td>
+                                        <tr>
+                                            <td className="align-top">Production</td>
                                             <td className="pl-20">
                                                 <div className="flex flex-wrap gap-2">
                                                     {bannerData.production_companies.map((data, index) => {
                                                         return (
-                                                            <p key={index}>
+                                                            <p key={index} className="leading-none">
                                                                 {data.name}
                                                                 {bannerData.production_companies.length - 1 === index ? "" : ","}
                                                             </p>
@@ -158,7 +158,7 @@ function MovieDetail() {
 
                     {/* cast */}
                     <div className="mt-10 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={castData} type={"cast"} title={"Cast"} url={"movie/all"} />
+                        <Slider data={castData} type={"cast"} title={"Cast"} url={"movie/all"} hideLink={true} />
                     </div>
 
                     <div className="mt-20 px-6 md:px-10 lg:px-20">

@@ -1,8 +1,19 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
+import Aos from "aos";
+import "aos/dist/aos.css";
+
 import Card from "@/app/components/Card/card";
 
 function MovieAll() {
+    useEffect(() => {
+        Aos.init({
+            duration: 1200,
+            once: true,
+            offset: 0,
+        });
+    });
+
     const [allData, setAllData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(null);
@@ -50,7 +61,7 @@ function MovieAll() {
     );
 
     return (
-        <div className="mt-6 px-6 md:px-10 lg:px-20">
+        <div className="mt-6 px-6 md:px-10 lg:px-20" data-aos="fade-in">
             <h1 className="text-lg md:text-xl lg:hidden">All Movie</h1>
 
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">

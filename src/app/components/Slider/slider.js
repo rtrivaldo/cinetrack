@@ -7,14 +7,14 @@ import "swiper/css/navigation";
 import Link from "next/link";
 import Card from "../Card/card";
 
-function Slider({ data, type, title, url }) {
+function Slider({ data, type, title, url, hideLink = false }) {
     return (
         <>
             {/* headings */}
             <div className="flex justify-between" data-aos="fade">
                 <h1 className="text-lg md:text-xl lg:text-2xl">{title}</h1>
 
-                <Link href={url} className="lg:text-lg text-cyan-400 tracking-wide">
+                <Link href={url} className={`lg:text-lg text-cyan-400 tracking-wide ${hideLink ? "hidden" : ""}`}>
                     Explore All
                 </Link>
             </div>
