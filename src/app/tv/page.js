@@ -7,6 +7,8 @@ import "aos/dist/aos.css";
 import Banner from "../components/Banner/banner";
 import Footer from "../components/Footer/footer";
 import Slider from "../components/Slider/slider";
+import Card from "../components/Card/card";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
     const [bannerData, setBannerData] = useState(null);
@@ -15,6 +17,10 @@ export default function Home() {
     const [onTheAirTvData, setOnTheAirTvData] = useState(null);
     const [popularTvData, setPopularTvData] = useState(null);
     const [topRatedTvData, setTopRatedTvData] = useState(null);
+    const [searchData, setSearchData] = useState(null);
+
+    const searchParams = useSearchParams();
+    const query = searchParams.get("query");
 
     /* initiate AOS */
     useEffect(() => {
@@ -39,7 +45,7 @@ export default function Home() {
         };
 
         /* fetch data from API */
-        const fetchBannerData = async () => {
+        const fetchData = async () => {
             //* get banner data */
             const reqBannerData = await fetch(`${apiUrl}/trending/tv/day?language=en-US`, options);
             const resBannerData = await reqBannerData.json();
@@ -80,40 +86,66 @@ export default function Home() {
             const resTopRatedTv = await reqTopRatedTv.json();
 
             setTopRatedTvData(resTopRatedTv.results);
+
+            /* get search */
+            const reqSearch = await fetch(`${apiUrl}/search/multi?query=${query}&include_adult=false&language=en-US&page=1`, options);
+            const resSearch = await reqSearch.json();
+
+            setSearchData(resSearch.results);
         };
 
-        fetchBannerData();
-    }, []);
+        fetchData();
+    }, [query]);
 
     return (
         <>
-            {bannerData && airingTodayTvData && onTheAirTvData && popularTvData && topRatedTvData && (
-                <div className="mb-24 lg:mb-10">
-                    <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
+            {query ? (
+                <div className="">
+                    {searchData && (
+                        <div className="mt-6 px-6 md:px-10 lg:px-20">
+                            <h1 className="text-lg md:text-xl lg:text-2xl">Results For: {query}</h1>
 
-                    {/* airing today tv shows */}
-                    <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={airingTodayTvData} type={"tv"} title={"Airing Today"} url={"tv/all"} />
-                    </div>
+                            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
+                                {searchData.map((data, index) => (
+                                    <div key={index} data-aos="fade-up">
+                                        <Card data={data} type={data.media_type} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div className="">
+                    {bannerData && airingTodayTvData && onTheAirTvData && popularTvData && topRatedTvData && (
+                        <div className="mb-24 lg:mb-10">
+                            <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
 
-                    {/* on the air tv shows */}
-                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={onTheAirTvData} type={"tv"} title={"On The Air"} url={"tv/all"} />
-                    </div>
+                            {/* airing today tv shows */}
+                            <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={airingTodayTvData} type={"tv"} title={"Airing Today"} url={"tv/all"} />
+                            </div>
 
-                    {/* popular tv shows */}
-                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={popularTvData} type={"tv"} title={"Popular"} url={"tv/all"} />
-                    </div>
+                            {/* on the air tv shows */}
+                            <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={onTheAirTvData} type={"tv"} title={"On The Air"} url={"tv/all"} />
+                            </div>
 
-                    {/* top rated tv shows */}
-                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={topRatedTvData} type={"tv"} title={"Top Rated"} url={"tv/all"} />
-                    </div>
+                            {/* popular tv shows */}
+                            <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={popularTvData} type={"tv"} title={"Popular"} url={"tv/all"} />
+                            </div>
 
-                    <div className="mt-20 px-6 md:px-10 lg:px-20">
-                        <Footer />
-                    </div>
+                            {/* top rated tv shows */}
+                            <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={topRatedTvData} type={"tv"} title={"Top Rated"} url={"tv/all"} />
+                            </div>
+
+                            <div className="mt-20 px-6 md:px-10 lg:px-20">
+                                <Footer />
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </>

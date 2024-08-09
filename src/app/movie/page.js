@@ -7,6 +7,8 @@ import "aos/dist/aos.css";
 import Banner from "../components/Banner/banner";
 import Footer from "../components/Footer/footer";
 import Slider from "../components/Slider/slider";
+import { useSearchParams } from "next/navigation";
+import Card from "../components/Card/card";
 
 export default function Home() {
     const [bannerData, setBannerData] = useState(null);
@@ -15,6 +17,10 @@ export default function Home() {
     const [popularMovieData, setPopularMovieData] = useState(null);
     const [topRatedMovieData, setTopRatedMovieData] = useState(null);
     const [upComingMovieData, setUpComingMovieData] = useState(null);
+    const [searchData, setSearchData] = useState(null);
+
+    const searchParams = useSearchParams();
+    const query = searchParams.get("query");
 
     /* initiate AOS */
     useEffect(() => {
@@ -39,7 +45,7 @@ export default function Home() {
         };
 
         /* fetch data from API */
-        const fetchBannerData = async () => {
+        const fetchData = async () => {
             //* get banner data */
             const reqBannerData = await fetch(`${apiUrl}/trending/movie/day?language=en-US`, options);
             const resBannerData = await reqBannerData.json();
@@ -80,40 +86,66 @@ export default function Home() {
             const resUpComingMovieData = await reqUpComingMovieData.json();
 
             setUpComingMovieData(resUpComingMovieData.results);
+
+            /* get search */
+            const reqSearch = await fetch(`${apiUrl}/search/multi?query=${query}&include_adult=false&language=en-US&page=1`, options);
+            const resSearch = await reqSearch.json();
+
+            setSearchData(resSearch.results);
         };
 
-        fetchBannerData();
-    }, []);
+        fetchData();
+    }, [query]);
 
     return (
         <>
-            {bannerData && nowPlayingMovieData && popularMovieData && topRatedMovieData && upComingMovieData && (
-                <div className="mb-24 lg:mb-10">
-                    <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
+            {query ? (
+                <div className="">
+                    {searchData && (
+                        <div className="mt-6 px-6 md:px-10 lg:px-20">
+                            <h1 className="text-lg md:text-xl lg:text-2xl">Results For: {query}</h1>
 
-                    {/* now playing movies */}
-                    <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={nowPlayingMovieData} type={"movie"} title={"Now Playing"} url={"movie/all"} />
-                    </div>
+                            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
+                                {searchData.map((data, index) => (
+                                    <div key={index} data-aos="fade-up">
+                                        <Card data={data} type={data.media_type} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div className="">
+                    {bannerData && nowPlayingMovieData && popularMovieData && topRatedMovieData && upComingMovieData && (
+                        <div className="mb-24 lg:mb-10">
+                            <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
 
-                    {/* popular movies */}
-                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={popularMovieData} type={"movie"} title={"Popular"} url={"movie/all"} />
-                    </div>
+                            {/* now playing movies */}
+                            <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={nowPlayingMovieData} type={"movie"} title={"Now Playing"} url={"movie/all"} />
+                            </div>
 
-                    {/* top rated movies */}
-                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={topRatedMovieData} type={"movie"} title={"Top Rated"} url={"movie/all"} />
-                    </div>
+                            {/* popular movies */}
+                            <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={popularMovieData} type={"movie"} title={"Popular"} url={"movie/all"} />
+                            </div>
 
-                    {/* up coming movies */}
-                    <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={upComingMovieData} type={"movie"} title={"Up Coming"} url={"movie/all"} />
-                    </div>
+                            {/* top rated movies */}
+                            <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={topRatedMovieData} type={"movie"} title={"Top Rated"} url={"movie/all"} />
+                            </div>
 
-                    <div className="mt-20 px-6 md:px-10 lg:px-20">
-                        <Footer />
-                    </div>
+                            {/* up coming movies */}
+                            <div className="mt-10 md:mt-6 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={upComingMovieData} type={"movie"} title={"Up Coming"} url={"movie/all"} />
+                            </div>
+
+                            <div className="mt-20 px-6 md:px-10 lg:px-20">
+                                <Footer />
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </>

@@ -7,12 +7,18 @@ import "aos/dist/aos.css";
 import Banner from "./components/Banner/banner";
 import Footer from "./components/Footer/footer";
 import Slider from "./components/Slider/slider";
+import { useSearchParams } from "next/navigation";
+import Card from "./components/Card/card";
 
 export default function Home() {
     const [bannerData, setBannerData] = useState(null);
     const [bannerTrailer, setBannerTrailer] = useState(null);
     const [trendingMovieData, setTrendingMovieData] = useState(null);
     const [trendingTvData, setTrendingTvData] = useState(null);
+    const [searchData, setSearchData] = useState(null);
+
+    const searchParams = useSearchParams();
+    const query = searchParams.get("query");
 
     /* initiate AOS */
     useEffect(() => {
@@ -37,7 +43,7 @@ export default function Home() {
         };
 
         /* fetch data from API */
-        const fetchBannerData = async () => {
+        const fetchData = async () => {
             /* get banner data */
             const reqBannerData = await fetch(`${apiUrl}/trending/all/day?language=en-US`, options);
             const resBannerData = await reqBannerData.json();
@@ -66,30 +72,54 @@ export default function Home() {
             const resTrendingTv = await reqTrendingTv.json();
 
             setTrendingTvData(resTrendingTv.results);
+
+            /* get search */
+            const reqSearch = await fetch(`${apiUrl}/search/multi?query=${query}&include_adult=false&language=en-US&page=1`, options);
+            const resSearch = await reqSearch.json();
+
+            setSearchData(resSearch.results);
         };
 
-        fetchBannerData();
-    }, []);
+        fetchData();
+    }, [query]);
 
     return (
         <>
-            {bannerData && trendingMovieData && trendingTvData && (
-                <div className="mb-24 lg:mb-10">
-                    <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
+            {query ? (
+                <div className="">
+                    {searchData && (
+                        <div className="mt-6 px-6 md:px-10 lg:px-20">
+                            <h1 className="text-lg md:text-xl lg:text-2xl">Results For: {query}</h1>
 
-                    {/* trending movies */}
-                    <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={trendingMovieData} type={"movie"} title={"Trending Movies"} url={"movie/all"} />
-                    </div>
+                            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
+                                {searchData.map((data, index) => (
+                                    <div key={index} data-aos="fade-up">
+                                        <Card data={data} type={data.media_type} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div className="">
+                    {bannerData && trendingMovieData && trendingTvData && (
+                        <div className="mb-24 lg:mb-10">
+                            <Banner data={bannerData} trailerId={bannerTrailer} type={bannerData.media_type} />
 
-                    {/* trending tv shows */}
-                    <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
-                        <Slider data={trendingTvData} type={"tv"} title={"Trending TV Shows"} url={"tv/all"} />
-                    </div>
-
-                    <div className="mt-20 px-6 md:px-10 lg:px-20">
-                        <Footer />
-                    </div>
+                            {/* trending movies */}
+                            <div className="mt-6 md:mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={trendingMovieData} type={"movie"} title={"Trending Movies"} url={"movie/all"} />
+                            </div>
+                            {/* trending tv shows */}
+                            <div className="mt-10 px-6 md:px-10 lg:px-20 overflow-y-hidden">
+                                <Slider data={trendingTvData} type={"tv"} title={"Trending TV Shows"} url={"tv/all"} />
+                            </div>
+                            <div className="mt-20 px-6 md:px-10 lg:px-20">
+                                <Footer />
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </>

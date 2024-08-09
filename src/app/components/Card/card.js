@@ -3,13 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 function Card({ data, type }) {
-    const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${data.poster_path}` : "/img/default-poster.png";
+    const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/original${data.poster_path}` : "/img/default-poster.png";
     const title = type === "movie" ? data.title : data.name;
     const shortTitle = type === "movie" ? limitStringToNCharacters(data.title, 14) : limitStringToNCharacters(data.name, 14);
-    const rating = type === "cast" ? "" : data.vote_average.toFixed(1);
+
+    const rateValue = data.vote_average ? data.vote_average.toFixed(1) : 0;
+    const rating = type === "cast" ? "" : rateValue;
 
     const character = type === "cast" ? data.character : "";
-    const profilePath = data.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${data.profile_path}` : "/img/default-poster.png";
+    const profilePath = data.profile_path ? `https://image.tmdb.org/t/p/original${data.profile_path}` : "/img/default-poster.png";
 
     return (
         <>

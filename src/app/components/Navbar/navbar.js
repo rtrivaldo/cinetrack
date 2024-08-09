@@ -1,10 +1,21 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 import Link from "next/link";
 
 function Navbar() {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const { replace } = useRouter();
+
+    const handleSearch = useDebouncedCallback((term) => {
+        const params = new URLSearchParams(searchParams);
+
+        term ? params.set("query", term) : params.delete("query");
+
+        replace(`${pathname}?${params.toString()}`);
+    }, 300);
 
     return (
         <div className="fixed bottom-0 lg:static flex items-center justify-between px-0 lg:px-20 py-4 lg:py-6 mx-auto bg-background z-50" data-aos="fade">
@@ -59,7 +70,17 @@ function Navbar() {
                 </div>
 
                 <div className="hidden lg:block">
-                    <input type="text" name="search" id="search" placeholder="Search for movies, tv shows or people" className="w-[20rem] px-4 py-2 rounded" />
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Search for movies, tv shows or people"
+                        className="w-[20rem] px-4 py-2 rounded text-black"
+                        onChange={(e) => {
+                            handleSearch(e.target.value);
+                        }}
+                        defaultValue={searchParams.get("q")?.toString()}
+                    />
                 </div>
             </div>
         </div>
