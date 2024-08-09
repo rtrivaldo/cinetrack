@@ -19,7 +19,7 @@ function Navbar() {
 
     return (
         <>
-            <div className="p-4 md:p-6 lg:hidden fixed top-0 z-50 w-screen bg-background">
+            <div className="p-4 md:p-6 lg:hidden fixed top-0 z-50 w-screen bg-background" data-aos="fade">
                 <input
                     type="text"
                     name="search"
