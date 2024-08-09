@@ -18,7 +18,7 @@ function Card({ data, type }) {
             {type === "cast" ? (
                 <div href={`./${type}/${data.id}`}>
                     <div className="rounded-lg overflow-hidden">
-                        <Image src={profilePath} alt="" width={220} height={340} className="w-full h-auto lg:hover:scale-105 transition-all duration-500 ease-out"></Image>
+                        <Image src={profilePath} alt="" width={220} height={340} unoptimized className="w-full h-auto lg:hover:scale-105 transition-all duration-500 ease-out"></Image>
                     </div>
 
                     <div className="mt-4 hidden md:block">
@@ -31,7 +31,7 @@ function Card({ data, type }) {
             ) : (
                 <Link href={`./${type}/${data.id}`}>
                     <div className="rounded-lg overflow-hidden">
-                        <Image src={posterPath} alt="" width={220} height={340} className="w-full h-auto lg:hover:scale-105 transition-all duration-500 ease-out"></Image>
+                        <Image src={posterPath} alt="" width={220} height={340} unoptimized className="w-full h-auto lg:hover:scale-105 transition-all duration-500 ease-out"></Image>
                     </div>
 
                     <div className="mt-4">

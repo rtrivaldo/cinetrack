@@ -79,7 +79,7 @@ function MovieDetail() {
             {query ? (
                 <div className="">
                     {searchData && (
-                        <div className="mt-6 px-6 md:px-10 lg:px-20">
+                        <div className="mt-20 md:mt-24 px-6 md:px-10 lg:px-20">
                             <h1 className="text-lg md:text-xl lg:text-2xl">Results For: {query}</h1>
 
                             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
@@ -103,7 +103,7 @@ function MovieDetail() {
                                 <h1 className="text-xl lg:text-2xl text-center text-cyan-400 font-medium tracking-wide">Overview</h1>
 
                                 <div className="mt-10 flex gap-16">
-                                    <Image src={bannerData.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${bannerData.poster_path}` : "/img/default-poster.png"} alt={""} width={350} height={340} className="w-[250px] xl:w-[350px] h-max hidden md:block"></Image>
+                                    <Image src={bannerData.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${bannerData.poster_path}` : "/img/default-poster.png"} alt={""} width={350} height={340} unoptimized className="w-[250px] xl:w-[350px] h-max hidden md:block"></Image>
 
                                     <div className="">
                                         {/* storyline */}

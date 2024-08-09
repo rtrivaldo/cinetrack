@@ -4,6 +4,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 import Card from "@/app/components/Card/card";
+import { useSearchParams } from "next/navigation";
 
 function TvAll() {
     useEffect(() => {
@@ -17,6 +18,11 @@ function TvAll() {
     const [allData, setAllData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(null);
+    const [searchData, setSearchData] = useState(null);
+
+    const searchParams = useSearchParams();
+    const query = searchParams.get("query");
+
     const observer = useRef();
 
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -47,6 +53,18 @@ function TvAll() {
         }
     }, [currentPage]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            /* get search */
+            const reqSearch = await fetch(`${apiUrl}/search/multi?query=${query}&include_adult=false&language=en-US&page=1`, options);
+            const resSearch = await reqSearch.json();
+
+            setSearchData(resSearch.results);
+        };
+
+        fetchData();
+    }, [query]);
+
     const lastElementRef = useCallback(
         (node) => {
             if (observer.current) observer.current.disconnect();
@@ -61,17 +79,39 @@ function TvAll() {
     );
 
     return (
-        <div className="mt-6 px-6 md:px-10 lg:px-20" data-aos="fade-in">
-            <h1 className="text-lg md:text-xl lg:hidden">All TV Shows</h1>
+        <>
+            {query ? (
+                <div className="">
+                    {searchData && (
+                        <div className="mt-20 md:mt-24 px-6 md:px-10 lg:px-20">
+                            <h1 className="text-lg md:text-xl lg:text-2xl">Results For: {query}</h1>
 
-            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
-                {allData.map((data, index) => (
-                    <div key={index} ref={index === allData.length - 1 ? lastElementRef : null} data-aos="fade-up">
-                        <Card data={data} type={"tv"} />
+                            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
+                                {searchData.map((data, index) => (
+                                    <div key={index} data-aos="fade-up">
+                                        <Card data={data} type={data.media_type} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div className="">
+                    <div className="mt-20 md:mt-24 px-6 md:px-10 lg:px-20" data-aos="fade-in">
+                        <h1 className="text-lg md:text-xl lg:hidden">All TV Shows</h1>
+
+                        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
+                            {allData.map((data, index) => (
+                                <div key={index} ref={index === allData.length - 1 ? lastElementRef : null} data-aos="fade-up">
+                                    <Card data={data} type={"tv"} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                ))}
-            </div>
-        </div>
+                </div>
+            )}
+        </>
     );
 }
 
