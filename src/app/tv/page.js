@@ -102,7 +102,7 @@ export default function Home() {
             {query ? (
                 <div className="">
                     {searchData && (
-                        <div className="mt-6 px-6 md:px-10 lg:px-20">
+                        <div className="mt-20 md:mt-24 px-6 md:px-10 lg:px-20">
                             <h1 className="text-lg md:text-xl lg:text-2xl">Results For: {query}</h1>
 
                             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-6">
