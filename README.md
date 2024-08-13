@@ -47,5 +47,5 @@ npm run dev
 ### Author
 
 -   Email: [rtrivaldo05@gmail.com](mailto:rtrivaldo05@gmail.com)
--   Github: [rtrivaldo](https://github.com/rtrivaldo)
--   Linkedin: [rivaldo-tandoko](https://www.linkedin.com/in/rivaldo-tandoko/)
+-   Github: [rtrivaldo05@gmail.com](rtrivaldo05@gmail.com)
+-   Linkedin: [linkedin.com/in/rivaldo-tandoko](https://www.linkedin.com/in/rivaldo-tandoko/)
